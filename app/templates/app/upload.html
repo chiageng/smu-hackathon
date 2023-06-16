@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Upload{% endblock title %}
+
+
+{% block body_block %}
+    <div class="mx-auto p-2">
+        <p>
+            Select a document template to upload
+        </p>
+        <form method="POST" enctype="multipart/form-data" >  
+            {% csrf_token %}  
+            {{ template_form.as_p }} 
+            <input type="submit" value="Upload">
+        </form>  
+    </div>
+
+    {% comment %} <div>
+        <p>
+            Select a document to upload
+        </p>
+        <form method="POST" enctype="multipart/form-data">  
+            {% csrf_token %}  
+            {{ file_form.as_p }} 
+            <input type="submit" value="Upload">
+        </form>  
+    </div> {% endcomment %}
+
+{% endblock body_block %}

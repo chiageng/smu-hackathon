@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+
+
+{% block title %}Document Generator{% endblock title %}
+
+
+{% block body_block %}
+
+    {% comment %} Select template
+    {% for template in templates  %}
+    
+        <p>
+        {{ template.filepath }}
+        </p>
+    {% endfor %} {% endcomment %}
+
+    {% comment %} Select files
+    {% for file in files %}
+        <p>
+        {{ file.filepath }}
+        </p>
+
+    {% endfor %} {% endcomment %}
+    <div class="mx-auto p-2">
+        <p>
+            Select a template and data file
+        </p>
+        <form method="POST" enctype="multipart/form-data" >  
+            {% csrf_token %}  
+            {{ form.as_p }} 
+            <input type="submit" value="Upload">
+        </form>  
+    </div>
+
+
+{% endblock body_block %}

@@ -13,3 +13,17 @@ class UserProfileInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class TemplateFile(models.Model):
+    name = models.CharField(max_length=500)
+    filepath = models.FileField(upload_to='files/templates', null=True)
+
+    def __str__(self):
+        return self.name
+    
+class File(models.Model):
+    name = models.CharField(max_length=500)
+    filepath = models.FileField(upload_to='files/', null=True)
+
+    def __str__(self):
+        return self.name

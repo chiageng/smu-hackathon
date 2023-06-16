@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from .models import *
+from .forms import *
+from .utils import generate_files
 
 # Create your views here.
 def index(request):
@@ -72,3 +75,48 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('app:index'))
+
+
+def upload(request):
+    if request.method == "POST":
+        template = TemplateUpload(request.POST, request.FILES)
+        if template.is_valid():
+            template.save()
+            return HttpResponseRedirect(reverse("app:index"))
+            
+            
+
+    else:
+        template = TemplateUpload()
+        # file = FileUpload()
+
+
+        return render(request, "app/upload.html", {
+            "template_form": template,
+            # "file_form": file
+            
+        }) 
+    
+def generate(request):
+
+    templates = TemplateFile.objects.all()
+    files = File.objects.all()
+
+    if request.method == "POST":
+        form = GenerateForm(templates, files, request.POST)
+        if form.is_valid():
+            template_path = request.POST.get('template')
+            data_path = request.POST.get('file')
+
+            generate_files(template_path, data_path)
+
+        return HttpResponseRedirect(reverse("app:index"))
+
+
+    form = GenerateForm(templates, files)
+
+    return render(request, 'app/generate.html', {
+        # 'templates': templates,
+        # 'files': files
+        'form': form
+    })
