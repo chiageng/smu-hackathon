@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+{% load static %}
+    
+{% block title %}Registration{% endblock title %}
+
+{% block body_block %}
+
+<div>
+  {% if registered %}
+    <h1>Thank you for registering </h1>
+    <a class="nav-link" href="{% url "app:user_login" %}">Login</a>
+
+  {% else %}
+    <h1>Register here</h1>
+    <h3>Fill out the form :</h3>
+
+    <form method="post" enctype="multipart/form-data" class="mx-auto p-2"> 
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ user_form.as_p }}
+      </div>
+      <div class="mb-3">
+        {{ profile_form.as_p }}
+      </div>
+      <input type="submit" name="" value="Register" class="btn btn-primary">
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

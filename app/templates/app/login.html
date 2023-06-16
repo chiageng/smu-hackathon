@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends 'app/base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block body_block %}
+  <h1>Please Login</h1>
+  <form action="{% url 'app:user_login' %}" method='post' class="mx-auto p-2">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Username: </label>
+        <input type="text" name="username" placeholder="Enter username" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password: </label>
+        <input type="password" name="password" class="form-control">
+    </div>
+
+    <input type="submit" name="" value="Login", class="btn btn-primary">
+  </form>
+
+{% endblock %}
